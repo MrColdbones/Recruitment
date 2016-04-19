@@ -1,0 +1,100 @@
+﻿<Window x:Class="CountryTree.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CountryTree"
+        mc:Ignorable="d"
+        Title="Countries with regions" Height="650" Width="625">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <DataTemplate x:Key="TreeViewCountryTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"/>
+                <Button Grid.Column="1" Content="Add" Command="{Binding AddCountrySubregionCommand}" CommandParameter="{Binding .}"/>
+                <Button Grid.Column="2" Content="Remove" Command="{Binding RemoveCountrySubregionCommand}" CommandParameter="{Binding .}"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TreeViewPossibleSubregionTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"/>
+                <Button Grid.Column="1" Content="Add" Command="{Binding AddPossibleSubregionCommand}" CommandParameter="{Binding .}"/>
+                <Button Grid.Column="2" Content="Remove" Command="{Binding RemovePossibleSubregionCommand}" CommandParameter="{Binding .}"/>
+            </Grid>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0">
+                Country regions
+            </Label>
+
+            <TreeView Grid.Row="1" ItemTemplate="{Binding Source={StaticResource ResourceKey=TreeViewCountryTemplate}}">
+            </TreeView>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0">
+                Country list
+            </Label>
+            <ListBox Grid.Row="1" Background="LightGray">
+                
+            </ListBox>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Add country" Grid.Column="0" Margin="5" FontSize="10" Command="{Binding AddCountryCommand}"/>
+                <Button Content="Remove country" Grid.Column="1" Margin="5" FontSize="10" Command="{Binding RemoveCountryCommand}"/>
+            </Grid>                        
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Country sub-regions"/>
+            <TreeView Grid.Row="1" ItemTemplate="{Binding Source={StaticResource ResourceKey=TreeViewPossibleSubregionTemplate}}">
+                
+            </TreeView>
+        </Grid>
+    </Grid>
+</Window>
